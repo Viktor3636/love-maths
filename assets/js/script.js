@@ -44,6 +44,8 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division") {
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -89,6 +91,8 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
+    } else if (operator === "/") {
+        return [operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -138,4 +142,25 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
 
+}
+
+function displayDivisionQuestion() {
+    // Generate random operands
+    let operand1 = Math.floor(Math.random() * 10) + 1; // Adjust the range of random numbers as needed
+    let operand2 = Math.floor(Math.random() * operand1) + 1; // Ensure operand2 is less than operand1
+    
+    // Calculate the result
+    let result = operand1 / operand2;
+
+    // If the result is not a whole number, regenerate operands
+    while (!Number.isInteger(result)) {
+        operand1 = Math.floor(Math.random() * 20) + 1;
+        operand2 = Math.floor(Math.random() * operand1) + 1;
+        result = operand1 / operand2;
+    }
+
+    // Display the question
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 }
